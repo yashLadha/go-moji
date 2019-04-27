@@ -72,5 +72,10 @@ func main() {
 
 	var commitStr = commitObject.Type.Code + " " + commitObject.Title + "\n" + commitObject.CommitDefinition
 	fmt.Println(commitStr)
-
+	cmd := exec.Command("git", "commit", "-m", commitStr)
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Unexpected error occured %v\n", err)
+		exitWrapper()
+	}
+	os.Exit(0)
 }
