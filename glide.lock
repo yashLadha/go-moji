@@ -1,0 +1,6 @@
+hash: 3531e429dad1182647d3c7c424b96fb862c2f8ed63cc33a7a8f2c1cffed77d81
+updated: 2019-04-25T19:48:26.306003+05:30
+imports:
+- name: github.com/manifoldco/promptui
+  version: 20f2a94120aa14a334121a6de66616a7fa89a5cd
+testImports: []

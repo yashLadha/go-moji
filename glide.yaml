@@ -1,0 +1,4 @@
+package: github.com/yashLadha/go-moji
+import:
+- package: github.com/manifoldco/promptui
+  version: ^0.3.2
