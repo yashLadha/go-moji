@@ -18,18 +18,18 @@ func CommitTypePrompt(emojiList *models.GitMojis) (models.EmojiInfo, error) {
 
 	searcher := func(input string, index int) bool {
 		emoji := emojiList.Emoji[index]
-		name := strings.Replace(strings.ToLower(emoji.Description), " ", "", -1)
-		input = strings.Replace(strings.ToLower(input), " ", "", -1)
-
+		name := strings.ToLower(emoji.Description)
+		input = strings.ToLower(input)
 		return strings.Contains(name, input)
 	}
 
 	emojiPrompt := promptui.Select{
-		Label:     "Select type of commit",
-		Items:     emojiList.Emoji,
-		Size:      10,
-		Templates: &template,
-		Searcher:  searcher,
+		Label:             "Select type of commit",
+		Items:             emojiList.Emoji,
+		Size:              10,
+		Templates:         &template,
+		Searcher:          searcher,
+		StartInSearchMode: true,
 	}
 
 	idx, _, err := emojiPrompt.Run()
