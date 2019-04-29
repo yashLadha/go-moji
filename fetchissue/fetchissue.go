@@ -9,7 +9,7 @@ import (
 func FetchIssue() (result string, err error) {
 	issueSelectionPrompt := promptui.Select{
 		Label: "Select Issue Type",
-		Items: []string{"Github", "Jira"},
+		Items: []string{"Github", "Jira", "NIL"},
 	}
 	_, option, err := issueSelectionPrompt.Run()
 	if err != nil {

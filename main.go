@@ -19,6 +19,8 @@ func exitWrapper() {
 
 func main() {
 	var commitObject models.CommitBody
+	commitObject.JiraIssue = ""
+	commitObject.GithubIssue = ""
 
 	response, err := fmoji.FetchMoji()
 	if err != nil {
@@ -59,6 +61,9 @@ func main() {
 		}
 		commitObject.JiraIssue = issueString
 		break
+	case "NIL":
+		commitObject.NoIssue = true
+		break
 	default:
 		fmt.Println("No valid option selected")
 		exitWrapper()
@@ -70,8 +75,16 @@ func main() {
 	}
 	commitObject.CommitDefinition = bodyStr
 
-	var commitStr = commitObject.Type.Code + " " + commitObject.Title + "\n" + commitObject.CommitDefinition
-	fmt.Println(commitStr)
+	var commitStr = commitObject.Type.Code + " " + commitObject.Title + "\n"
+	if commitObject.NoIssue {
+		commitStr += commitObject.CommitDefinition
+	} else if commitObject.JiraIssue != "" {
+		commitStr += "Ref: #" + commitObject.JiraIssue + " \n"
+	} else if commitObject.GithubIssue != "" {
+		commitStr += "Ref: #" + commitObject.GithubIssue + " \n"
+	}
+	commitStr += commitObject.CommitDefinition
+	// fmt.Println(commitStr)
 	cmd := exec.Command("git", "commit", "-m", commitStr)
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("Unexpected error occured %v\n", err)

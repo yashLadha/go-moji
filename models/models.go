@@ -19,4 +19,5 @@ type CommitBody struct {
 	CommitDefinition string
 	GithubIssue      string
 	JiraIssue        string
+	NoIssue          bool
 }
