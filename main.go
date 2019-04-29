@@ -79,11 +79,10 @@ func main() {
 	if commitObject.NoIssue {
 		commitStr += commitObject.CommitDefinition
 	} else if commitObject.JiraIssue != "" {
-		commitStr += "Ref: #" + commitObject.JiraIssue + " \n"
+		commitStr += "Ref: #" + commitObject.JiraIssue + " \n" + commitObject.CommitDefinition
 	} else if commitObject.GithubIssue != "" {
-		commitStr += "Ref: #" + commitObject.GithubIssue + " \n"
+		commitStr += "Ref: #" + commitObject.GithubIssue + " \n" + commitObject.CommitDefinition
 	}
-	commitStr += commitObject.CommitDefinition
 	// fmt.Println(commitStr)
 	cmd := exec.Command("git", "commit", "-m", commitStr)
 	if err := cmd.Run(); err != nil {

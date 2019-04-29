@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/manifoldco/promptui"
+	"regexp"
 	"strconv"
 )
 
@@ -32,8 +33,17 @@ func GithubIssuePrompt() (issuenumber string, err error) {
 
 // JiraIssuePrompt Takes Jira Issue input from user
 func JiraIssuePrompt() (issuenumber string, err error) {
+	re := regexp.MustCompile(`([A-Z]+-[\d]+)`)
+	validator := func(input string) error {
+		matched := re.MatchString(input)
+		if !matched {
+			return errors.New("Wrong Issue Format")
+		}
+		return nil
+	}
 	issuePrompt := promptui.Prompt{
-		Label: "Jira Issue",
+		Label:    "Jira Issue",
+		Validate: validator,
 	}
 
 	issueTag, err := issuePrompt.Run()
